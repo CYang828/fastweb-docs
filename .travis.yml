@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - "lts/*"
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - node_modules
+  yarn: true
+before_install:
+- export TZ='Asia/Shanghai'
+install:
+- yarn
+script:
+- yarn blog:build
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: f0f3c2d5bedb55a77f97442609aa7393f9476c35
+  local-dir: ./sources/.vuepress/dist/
+  target-branch: gh-pages
+  verbose: true
+  on:
+    branch: master
